@@ -30,6 +30,7 @@ OPT = -Og
 #######################################
 # Build path
 BUILD_DIR = build
+TEST_DIR = test
 
 ######################################
 # source
@@ -131,8 +132,7 @@ C_INCLUDES =  \
 -IMiddlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 \
 -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F \
 -IDrivers/CMSIS/Device/ST/STM32F4xx/Include \
--IDrivers/CMSIS/Include
-
+-IDrivers/CMSIS/Include \
 
 # compile gcc flags
 ASFLAGS = $(MCU) $(AS_DEFS) $(AS_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections
@@ -190,7 +190,7 @@ $(BUILD_DIR)/%.bin: $(BUILD_DIR)/%.elf | $(BUILD_DIR)
 	$(BIN) $< $@	
 	
 $(BUILD_DIR):
-	mkdir $@		
+	mkdir $@
 
 #######################################
 # clean up
@@ -203,7 +203,11 @@ clean:
 #######################################
 flash: all
 	openocd -f interface/stlink.cfg -f target/stm32f4x.cfg -c "program $(BUILD_DIR)/$(TARGET).elf verify reset exit"
-  
+
+.PHONY: test
+test:
+	make -C $(TEST_DIR)
+
 #######################################
 # dependencies
 #######################################

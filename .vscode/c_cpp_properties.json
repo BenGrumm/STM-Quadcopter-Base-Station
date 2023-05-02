@@ -3,7 +3,8 @@
         {
             "name": "STM32 F4",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/tools/cpputest/include"
             ],
             "defines": [
                 "_DEBUG",
