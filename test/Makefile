@@ -1,15 +1,76 @@
-# Define test component directories
-TEST_DIRS = $(dir $(wildcard ./*/))
+# ==========================================
+#   Unity Project - A Test Framework for C
+#   Copyright (c) 2007 Mike Karlesky, Mark VanderVoord, Greg Williams
+#   [Released under MIT License. Please refer to license.txt for details]
+# ==========================================
 
-# Default rule: run all tests
-.PHONY: all $(TEST_DIRS)
-all: $(TEST_DIRS)
+#We try to detect the OS we are running on, and adjust commands as needed
+ifeq ($(OS),Windows_NT)
+  ifeq ($(shell uname -s),) # not in a bash-like shell
+	CLEANUP = del /F /Q
+	MKDIR = mkdir
+  else # in a bash-like shell, like msys
+	CLEANUP = rm -f
+	MKDIR = mkdir -p
+  endif
+	TARGET_EXTENSION=.exe
+else
+	CLEANUP = rm -f
+	MKDIR = mkdir -p
+	TARGET_EXTENSION=.out
+endif
 
-# Run tests
-$(TEST_DIRS):
-	make -C $@
+C_COMPILER=gcc
+ifeq ($(shell uname -s), Darwin)
+C_COMPILER=clang
+endif
 
-# Clean tests
-.PHONY: clean
+PROJECT_ROOT = ..
+UNITY_ROOT= C:/Unity
+
+CFLAGS=-std=c99
+CFLAGS += -Wall
+CFLAGS += -Wextra
+CFLAGS += -Wpointer-arith
+CFLAGS += -Wcast-align
+CFLAGS += -Wwrite-strings
+CFLAGS += -Wswitch-default
+CFLAGS += -Wunreachable-code
+CFLAGS += -Winit-self
+CFLAGS += -Wmissing-field-initializers
+CFLAGS += -Wno-unknown-pragmas
+CFLAGS += -Wstrict-prototypes
+CFLAGS += -Wundef
+CFLAGS += -Wold-style-definition
+#CFLAGS += -Wno-misleading-indentation
+
+TARGET_BASE1=all_tests
+TARGET1 = $(TARGET_BASE1)$(TARGET_EXTENSION)
+
+SRC_FILES1=\
+  $(UNITY_ROOT)/src/unity.c \
+  $(UNITY_ROOT)/extras/fixture/src/unity_fixture.c \
+  $(PROJECT_ROOT)/Src/average/average.c \
+  TestAverage.c \
+  test_runners/TestProductionCode_Runner.c \
+  test_runners/all_tests.c
+
+INC_DIRS=\
+  -I$(PROJECT_ROOT)/Inc \
+  -I$(PROJECT_ROOT)/Inc/average \
+  -I$(UNITY_ROOT)/src \
+  -I$(UNITY_ROOT)/extras/fixture/src
+
+SYMBOLS=-DUNITY_FIXTURE_NO_EXTRAS
+
+all: clean default
+
+default:
+	$(C_COMPILER) $(CFLAGS) $(INC_DIRS) $(SYMBOLS) $(SRC_FILES1) -o $(TARGET1)
+	- ./$(TARGET1) -v
+
 clean:
-	$(foreach DIR, $(TEST_DIRS), make -C $(DIR) clean)
+	$(CLEANUP) $(TARGET1)
+
+ci: CFLAGS += -Werror
+ci: default

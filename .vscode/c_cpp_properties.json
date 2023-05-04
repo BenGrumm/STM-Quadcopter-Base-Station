@@ -4,7 +4,7 @@
             "name": "STM32 F4",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${workspaceFolder}/tools/cpputest/include"
+                "C:/Unity/src"
             ],
             "defines": [
                 "_DEBUG",

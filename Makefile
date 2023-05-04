@@ -24,6 +24,8 @@ DEBUG = 1
 # optimization
 OPT = -Og
 
+TESTING = FALSE
+
 
 #######################################
 # paths
@@ -31,6 +33,7 @@ OPT = -Og
 # Build path
 BUILD_DIR = build
 TEST_DIR = test
+UNITY_DIR = C:/Unity
 
 ######################################
 # source
@@ -126,6 +129,7 @@ AS_INCLUDES =  \
 # C includes
 C_INCLUDES =  \
 -IInc \
+-IInc/average \
 -IDrivers/STM32F4xx_HAL_Driver/Inc \
 -IDrivers/STM32F4xx_HAL_Driver/Inc/Legacy \
 -IMiddlewares/Third_Party/FreeRTOS/Source/include \
@@ -133,6 +137,19 @@ C_INCLUDES =  \
 -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F \
 -IDrivers/CMSIS/Device/ST/STM32F4xx/Include \
 -IDrivers/CMSIS/Include \
+
+# Issues with vscode without these in here even though not used in this file (currently)
+ifeq ($(TESTING), TRUE)
+C_SOURCES +=
+test/TestAverage.c \
+test/test_runners/all_tests.c \
+test/test_runners/TestProductionCode_Runner.c
+
+C_INCLUDES += \
+-I$(UNIT_DIR)/src \
+-I$(UNIT_DIR)/extras/fixture/src \
+-I$(UNIT_DIR)/extras/memory/src
+endif
 
 # compile gcc flags
 ASFLAGS = $(MCU) $(AS_DEFS) $(AS_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections
