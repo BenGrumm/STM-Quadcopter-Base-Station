@@ -140,7 +140,7 @@ C_INCLUDES =  \
 
 # Issues with vscode without these in here even though not used in this file (currently)
 ifeq ($(TESTING), TRUE)
-C_SOURCES +=
+C_SOURCES += \
 test/TestAverage.c \
 test/test_runners/all_tests.c \
 test/test_runners/TestProductionCode_Runner.c
@@ -224,6 +224,10 @@ flash: all
 .PHONY: test
 test:
 	make -C $(TEST_DIR)
+
+.PHONY: test_clean
+test_clean:
+	make -C $(TEST_DIR) clean
 
 #######################################
 # dependencies

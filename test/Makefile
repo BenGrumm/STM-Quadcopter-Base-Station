@@ -20,12 +20,13 @@ else
 	TARGET_EXTENSION=.out
 endif
 
-C_COMPILER=gcc
+CC=gcc
 ifeq ($(shell uname -s), Darwin)
-C_COMPILER=clang
+CC=clang
 endif
 
 PROJECT_ROOT = ..
+BUILD_DIR = test_build
 UNITY_ROOT= C:/Unity
 
 CFLAGS=-std=c99
@@ -59,18 +60,34 @@ INC_DIRS=\
   -I$(PROJECT_ROOT)/Inc \
   -I$(PROJECT_ROOT)/Inc/average \
   -I$(UNITY_ROOT)/src \
-  -I$(UNITY_ROOT)/extras/fixture/src
+  -I$(UNITY_ROOT)/extras/fixture/src \
+  -I$(UNITY_ROOT)/extras/memory/src
+
+CFLAGS += $(INC_DIRS)
 
 SYMBOLS=-DUNITY_FIXTURE_NO_EXTRAS
 
-all: clean default
+# list of objects
+OBJECTS = $(addprefix $(BUILD_DIR)/,$(notdir $(SRC_FILES1:.c=.o)))
+vpath %.c $(sort $(dir $(SRC_FILES1)))
 
-default:
-	$(C_COMPILER) $(CFLAGS) $(INC_DIRS) $(SYMBOLS) $(SRC_FILES1) -o $(TARGET1)
+all: $(TARGET1) run
+
+run:
 	- ./$(TARGET1) -v
+
+$(TARGET1): $(OBJECTS)
+	$(CC) -o $@ $^
+
+$(BUILD_DIR)/%.o: %.c | $(BUILD_DIR)
+	$(CC) -c -o $@ $< $(CFLAGS)
+
+$(BUILD_DIR):
+	mkdir $@
 
 clean:
 	$(CLEANUP) $(TARGET1)
+	-rm -rf $(BUILD_DIR)
 
 ci: CFLAGS += -Werror
 ci: default
