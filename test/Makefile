@@ -26,8 +26,8 @@ CC=clang
 endif
 
 PROJECT_ROOT = ..
-BUILD_DIR = test_build
-UNITY_ROOT= C:/Unity
+BUILD_DIR = ../build/test_build
+UNITY_ROOT= ../tools/Unity
 
 CFLAGS=-std=c99
 CFLAGS += -Wall

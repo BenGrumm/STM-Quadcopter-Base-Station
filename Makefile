@@ -33,7 +33,7 @@ TESTING = FALSE
 # Build path
 BUILD_DIR = build
 TEST_DIR = test
-UNITY_DIR = C:/Unity
+UNITY_DIR = tools/Unity
 
 ######################################
 # source
@@ -143,12 +143,12 @@ ifeq ($(TESTING), TRUE)
 C_SOURCES += \
 test/TestAverage.c \
 test/test_runners/all_tests.c \
-test/test_runners/TestProductionCode_Runner.c
+test/test_runners/TestProductionCode_Runner.c 
 
 C_INCLUDES += \
--I$(UNIT_DIR)/src \
--I$(UNIT_DIR)/extras/fixture/src \
--I$(UNIT_DIR)/extras/memory/src
+-I$(UNITY_DIR)/src \
+-I$(UNITY_DIR)/extras/fixture/src \
+-I$(UNITY_DIR)/extras/memory/src
 endif
 
 # compile gcc flags
