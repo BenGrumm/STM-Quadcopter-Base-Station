@@ -5,6 +5,8 @@ COMPONENT_NAME = average
 # From https://matheusmbar.com/bugfree-robot/2019/04/05/makefile-first-test.html
 MAKEFILE_DIR = $(dir $(realpath $(firstword $(MAKEFILE_LIST))))
 PROJECT_DIR = $(realpath $(MAKEFILE_DIR)../..)
+CPPUTEST_OBJS_DIR = ../../build/test_build
+CPPUTEST_LIB_DIR = ../../build/test_build
 SRC_DIR = $(PROJECT_DIR)/Src
 INC_DIR = $(PROJECT_DIR)/Inc
 TEST_DIR = $(PROJECT_DIR)/test

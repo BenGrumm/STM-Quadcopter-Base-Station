@@ -197,6 +197,7 @@ $(BUILD_DIR):
 #######################################
 clean:
 	-rm -fR $(BUILD_DIR)
+	make -C $(TEST_DIR) clean
 
 #######################################
 # openocd flash
