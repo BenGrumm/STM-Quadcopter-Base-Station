@@ -3,6 +3,7 @@
 static void RunAllTests(void)
 {
   RUN_TEST_GROUP(AverageCode);
+  RUN_TEST_GROUP(BlinkCode);
 }
 
 int main(int argc, const char * argv[])

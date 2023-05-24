@@ -21,6 +21,9 @@
 #include "cmsis_os.h"
 
 /* Private includes ----------------------------------------------------------*/
+#include "cmsis_os2.h" // ? VSCode Errors When Not Included
+#include "blink.h"
+
 /* USER CODE BEGIN Includes */
 
 /* USER CODE END Includes */
@@ -234,8 +237,7 @@ void StartDefaultTask(void *argument)
   /* Infinite loop */
   for(;;)
   {
-    HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
-    osDelay(500);
+    blinkAndWait(GPIOC, GPIO_PIN_13, 2000);
   }
   /* USER CODE END 5 */
 }

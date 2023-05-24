@@ -3,8 +3,7 @@
         {
             "name": "STM32 F4",
             "includePath": [
-                "${workspaceFolder}/**",
-                "tools/Unity/**"
+                "${workspaceFolder}/**"
             ],
             "defines": [
                 "_DEBUG",
@@ -15,10 +14,11 @@
             ],
             "windowsSdkVersion": "10.0.19041.0",
             "compilerPath": "C:/Program Files (x86)/Arm GNU Toolchain arm-none-eabi/12.2 mpacbti-rel1/bin/arm-none-eabi-gcc.exe",
-            "compilerArgs": [   "-mcpu=cortex-m4", 
-                                "-mfpu=fpv4-sp-d16", 
-                                "-mthumb"
-                            ],
+            "compilerArgs": [
+                "-mcpu=cortex-m4",
+                "-mfpu=fpv4-sp-d16",
+                "-mthumb"
+            ],
             "cStandard": "c11",
             "cppStandard": "c++17",
             "intelliSenseMode": "gcc-arm"

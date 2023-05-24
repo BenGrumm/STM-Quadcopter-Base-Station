@@ -3,5 +3,8 @@
         "unity.h": "c",
         "unity_fixture.h": "c",
         "TestAverage.c": "c",
+        "cmsis_os.h": "c",
+        "stm32f4xx.h": "c",
+        "blink.h": "c"
     }
 }

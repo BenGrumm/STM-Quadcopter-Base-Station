@@ -41,6 +41,7 @@ UNITY_DIR = tools/Unity
 # C sources
 C_SOURCES =  \
 Src/main.c \
+Src/blink/blink.c \
 Src/freertos.c \
 Src/stm32f4xx_it.c \
 Src/stm32f4xx_hal_msp.c \
@@ -130,6 +131,7 @@ AS_INCLUDES =  \
 C_INCLUDES =  \
 -IInc \
 -IInc/average \
+-IInc/blink	\
 -IDrivers/STM32F4xx_HAL_Driver/Inc \
 -IDrivers/STM32F4xx_HAL_Driver/Inc/Legacy \
 -IMiddlewares/Third_Party/FreeRTOS/Source/include \

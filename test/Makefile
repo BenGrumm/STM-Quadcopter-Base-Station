@@ -45,6 +45,10 @@ CFLAGS += -Wundef
 CFLAGS += -Wold-style-definition
 #CFLAGS += -Wno-misleading-indentation
 
+DEFINES = -DUSE_STUBS
+
+CFLAGS += $(DEFINES)
+
 TARGET_BASE1=all_tests
 TARGET1 = $(TARGET_BASE1)$(TARGET_EXTENSION)
 
@@ -52,16 +56,24 @@ SRC_FILES1=\
   $(UNITY_ROOT)/src/unity.c \
   $(UNITY_ROOT)/extras/fixture/src/unity_fixture.c \
   $(PROJECT_ROOT)/Src/average/average.c \
+  $(PROJECT_ROOT)/Src/blink/blink.c \
+  $(PROJECT_ROOT)/mocks/cmsis_osStub.c \
+  $(PROJECT_ROOT)/mocks/stm32_hal_gpio_stub.c \
   TestAverage.c \
+  TestBlink.c \
   test_runners/TestProductionCode_Runner.c \
   test_runners/all_tests.c
 
 INC_DIRS=\
   -I$(PROJECT_ROOT)/Inc \
   -I$(PROJECT_ROOT)/Inc/average \
+  -I$(PROJECT_ROOT)/Inc/blink \
+  -I$(PROJECT_ROOT)/mocks \
   -I$(UNITY_ROOT)/src \
   -I$(UNITY_ROOT)/extras/fixture/src \
-  -I$(UNITY_ROOT)/extras/memory/src
+  -I$(UNITY_ROOT)/extras/memory/src \
+  -I$(PROJECT_ROOT)/Inc
+
 
 CFLAGS += $(INC_DIRS)
 
